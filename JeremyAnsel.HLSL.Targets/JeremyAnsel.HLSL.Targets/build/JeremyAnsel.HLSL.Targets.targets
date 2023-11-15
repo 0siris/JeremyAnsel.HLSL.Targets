@@ -20,6 +20,7 @@
         <ObjectFileOutput Condition="'%(HLSLShader.ObjectFileOutput)' == ''">$(OutputPath)$([System.IO.Path]::ChangeExtension(%(HLSLShader.Identity), '.cso'))</ObjectFileOutput>
         <EntryPointName Condition="'%(HLSLShader.EntryPointName)' == ''">main</EntryPointName>
         <TreatWarningAsError Condition="'%(HLSLShader.TreatWarningAsError)' == ''">true</TreatWarningAsError>
+        <EnableDebugSymbols Condition="'%(HLSLShader.EnableDebugSymbols)' == ''">true</EnableDebugSymbols>
         <OutputDisassembly Condition="'%(HLSLShader.OutputDisassembly)' == ''">false</OutputDisassembly>
         <OutputDisassemblyHtml Condition="'%(HLSLShader.OutputDisassemblyHtml)' == ''">false</OutputDisassemblyHtml>
       </HLSLShader>
@@ -31,6 +32,7 @@
                           PreprocessorDefinitions="%(HLSLShader.PreprocessorDefinitions)"
                           EntryPointName="%(HLSLShader.EntryPointName)"
                           TreatWarningAsError="%(HLSLShader.TreatWarningAsError)"
+                          EnableDebugSymbols="%(HLSLShader.EnableDebugSymbols)"
                           OutputDisassembly="%(HLSLShader.OutputDisassembly)"
                           OutputDisassemblyHtml="%(HLSLShader.OutputDisassemblyHtml)"
                           />

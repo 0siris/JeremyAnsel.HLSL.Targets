@@ -52,6 +52,8 @@
     <StringProperty Name="EntryPointName" DisplayName="Entry Point Name" Description="Sets the entry point name" Category="HLSL" />
 
     <BoolProperty Name="TreatWarningAsError" DisplayName="Treat Warning As Error" Description="Treats warning as error" Category="HLSL" />
+D    
+    <BoolProperty Name="EnableDebugSymbols" DisplayName="Enable Debug Symbols" Description="Directs the compiler to insert debug file/line/type/symbol information into the output code." Category="HLSL" />
 
     <BoolProperty Name="OutputDisassembly" DisplayName="Output Disassembly Shader" Description="Outputs disassembly shader" Category="HLSL" />
 

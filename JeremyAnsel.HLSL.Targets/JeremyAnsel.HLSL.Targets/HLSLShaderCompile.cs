@@ -22,6 +22,7 @@ namespace JeremyAnsel.HLSL.Targets
         public string EntryPointName { get; set; }
 
         public bool TreatWarningAsError { get; set; }
+        public bool EnableDebugSymbols { get; set; }
 
         public bool OutputDisassembly { get; set; }
 
@@ -255,6 +256,13 @@ float4 main( float4 pos : POSITION ) : SV_POSITION
             try
             {
                 D3DCompileOptions options = D3DCompileOptions.OptimizationLevel3;
+
+                if (EnableDebugSymbols)
+                {
+                    options = D3DCompileOptions.Debug;
+                    Log.LogMessage(MessageImportance.Normal, "Debug symbols enabled");
+                }
+                    
 
                 if (TreatWarningAsError)
                 {
