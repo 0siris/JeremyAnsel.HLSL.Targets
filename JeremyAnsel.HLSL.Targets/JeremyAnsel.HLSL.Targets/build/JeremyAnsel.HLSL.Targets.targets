@@ -12,11 +12,12 @@
   <UsingTask TaskName="HLSLShaderCompile" AssemblyFile="..\tools\netstandard2.0\JeremyAnsel.HLSL.Targets.dll" Condition="'$(MSBuildRuntimeType)' == 'Core'" />
   <UsingTask TaskName="HLSLShaderCompile" AssemblyFile="..\tools\net48\JeremyAnsel.HLSL.Targets.dll" Condition="'$(MSBuildRuntimeType)' != 'Core'" />
 
-  <Target Name="HLSLShader" BeforeTargets="BeforeBuild">
+  <Target Name="HLSLShader" BeforeTargets="BeforeBuild;Compile">
 
     <ItemGroup>
       <HLSLShader>
         <!--<ShaderProfile Condition="'%(HLSLShader.ShaderProfile)' == ''">ps_5_0</ShaderProfile>-->
+        <Debug Condition="'%(HLSLShader.Debug)' == ''">false</Debug>
         <ObjectFileOutput Condition="'%(HLSLShader.ObjectFileOutput)' == ''">$(OutputPath)$([System.IO.Path]::ChangeExtension(%(HLSLShader.Identity), '.cso'))</ObjectFileOutput>
         <EntryPointName Condition="'%(HLSLShader.EntryPointName)' == ''">main</EntryPointName>
         <TreatWarningAsError Condition="'%(HLSLShader.TreatWarningAsError)' == ''">true</TreatWarningAsError>
@@ -28,6 +29,7 @@
 
     <HLSLShaderCompile Source="@(HLSLShader)"
                           ShaderProfile="%(HLSLShader.ShaderProfile)"
+                          Debug="%(HLSLShader.Debug)"
                           ObjectFileOutput="%(HLSLShader.ObjectFileOutput)"
                           PreprocessorDefinitions="%(HLSLShader.PreprocessorDefinitions)"
                           EntryPointName="%(HLSLShader.EntryPointName)"
@@ -37,6 +39,23 @@
                           OutputDisassemblyHtml="%(HLSLShader.OutputDisassemblyHtml)"
                           />
 
+  </Target>
+
+  <PropertyGroup>
+    <_GenerateAppxManifestDependsOn>
+      ModifyAppXPackageShaderCso;
+      $(_GenerateAppxManifestDependsOn)
+    </_GenerateAppxManifestDependsOn>
+  </PropertyGroup>
+
+  <Target Name="ModifyAppXPackageShaderCso" Condition="'$(BuildingProject)' == 'true'">
+    <ItemGroup>
+      <Message Importance="high" Text="Modifying AppxPackagePayload Add shader cso files" />
+      <ShaderCsoFiles Include="$(ProjectDir)$(OutputPath)\**\*.cso" />
+      <AppxPackagePayload Include="%(ShaderCsoFiles.Identity)">
+        <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+      </AppxPackagePayload>
+    </ItemGroup>
   </Target>
 
 </Project>

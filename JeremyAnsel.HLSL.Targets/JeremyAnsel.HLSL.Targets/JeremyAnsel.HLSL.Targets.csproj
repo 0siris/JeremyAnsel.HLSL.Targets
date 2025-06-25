@@ -21,6 +21,7 @@
     <Company>Jérémy Ansel</Company>
     <Copyright>Copyright © 2019-2022 Jérémy Ansel</Copyright>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>DirectX D3D Compiler HLSL Shader</PackageTags>
     <PackageProjectUrl>https://github.com/JeremyAnsel/JeremyAnsel.HLSL.Targets</PackageProjectUrl>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -35,6 +36,10 @@
 
   <ItemGroup>
     <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
@@ -60,8 +65,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="JeremyAnsel.DirectX.D3DCompiler" Version="3.0.31" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.5.0" PrivateAssets="All" />
+    <PackageReference Include="JeremyAnsel.DirectX.D3DCompiler" Version="3.0.37" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.11.4" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="Microsoft.IO.Redist" Version="6.0.1" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
